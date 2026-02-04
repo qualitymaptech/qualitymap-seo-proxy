@@ -1,9 +1,11 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { VercelRequest, VercelResponse } from "vercel";
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const response = await fetch('https://seo.qualitymap.io/robots.txt');
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader("Content-Type", "text/plain");
+  res.status(200).send(
+`User-agent: *
+Allow: /
 
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Cache-Control', 'public, max-age=3600');
-  res.status(200).send(await response.text());
+Sitemap: https://seo.qualitymap.io/sitemap.xml`
+  );
 }
