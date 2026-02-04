@@ -1,9 +1,9 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { VercelRequest, VercelResponse } from "vercel";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const response = await fetch('https://seo.qualitymap.io/sitemap.xml');
+  const response = await fetch("https://seo.qualitymap.io/sitemap.xml");
+  const xml = await response.text();
 
-  res.setHeader('Content-Type', 'application/xml');
-  res.setHeader('Cache-Control', 'public, max-age=3600');
-  res.status(200).send(await response.text());
+  res.setHeader("Content-Type", "application/xml");
+  res.status(200).send(xml);
 }
